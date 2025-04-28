@@ -1,0 +1,29 @@
+auth module
+
+api/v1/auth/login/credentials
+api/v1/auth/register/credentials
+api/v1/auth/logout
+api/v1/auth/forgot_password
+api/v1/auth/reset_password
+api/v1/auth/change_password
+api/v1/auth/access_token
+api/v1/auth/refresh_token
+api/v1/auth/session
+api/v1/auth/tokens
+
+users module
+
+api/v1/users/find_one
+api/v1/users/find_all
+api/v1/users/create_one
+api/v1/users/create_many
+api/v1/users/update_one
+api/v1/users/update_many
+api/v1/users/remove_one
+api/v1/users/remove_many
+api/v1/users/search
+api/v1/users/filter
+api/v1/users/find_by_id
+api/v1/users/find_by_ids
+api/v1/users/exists_by_id
+api/v1/users/exists_by_ids

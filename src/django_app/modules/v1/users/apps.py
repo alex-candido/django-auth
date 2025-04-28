@@ -1,8 +1,10 @@
-# django_app/modules/v1/users/admin.py
+# django_app/modules/v1/users/apps.py
 
 from django.apps import AppConfig
 
 
 class UsersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'users'
+    name = 'django_app.modules.v1.users'
+    label = 'custom_users'
+    verbose_name = 'Users'

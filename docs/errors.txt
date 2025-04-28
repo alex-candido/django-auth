@@ -1,0 +1,12 @@
+pdm run manage makemigrations
+SystemCheckError: System check identified some issues:
+
+ERRORS:
+auth.User.groups: (fields.E304) Reverse accessor 'Group.user_set' for 'auth.User.groups' clashes with reverse accessor for 'custom_users.User.groups'.
+	HINT: Add or change a related_name argument to the definition for 'auth.User.groups' or 'custom_users.User.groups'.
+auth.User.user_permissions: (fields.E304) Reverse accessor 'Permission.user_set' for 'auth.User.user_permissions' clashes with reverse accessor for 'custom_users.User.user_permissions'.
+	HINT: Add or change a related_name argument to the definition for 'auth.User.user_permissions' or 'custom_users.User.user_permissions'.
+custom_users.User.groups: (fields.E304) Reverse accessor 'Group.user_set' for 'custom_users.User.groups' clashes with reverse accessor for 'auth.User.groups'.
+	HINT: Add or change a related_name argument to the definition for 'custom_users.User.groups' or 'auth.User.groups'.
+custom_users.User.user_permissions: (fields.E304) Reverse accessor 'Permission.user_set' for 'custom_users.User.user_permissions' clashes with reverse accessor for 'auth.User.user_permissions'.
+	HINT: Add or change a related_name argument to the definition for 'custom_users.User.user_permissions' or 'auth.User.user_permissions'.

@@ -13,12 +13,39 @@ src/
 │   ├── modules
 │   │   └── v1
 │   │       ├── auth
+│   │       │   ├── __init__.py
+│   │       │   ├── __pycache__
+│   │       │   │   ├── __init__.cpython-310.pyc
+│   │       │   │   └── apps.cpython-310.pyc
+│   │       │   ├── admin.py
+│   │       │   ├── api.py
+│   │       │   ├── apps.py
+│   │       │   ├── migrations
+│   │       │   │   └── __init__.py
+│   │       │   ├── models.py
+│   │       │   ├── repositories.py
+│   │       │   ├── serializers.py
+│   │       │   ├── services.py
+│   │       │   ├── tests.py
+│   │       │   ├── urls.py
+│   │       │   └── views.py
 │   │       ├── default
 │   │       └── users
+│   │           ├── __init__.py
+│   │           ├── admin.py
+│   │           ├── api.py
+│   │           ├── apps.py
+│   │           ├── migrations
+│   │           │   └── __init__.py
+│   │           ├── models.py
+│   │           ├── repositories.py
+│   │           ├── serializers.py
+│   │           ├── services.py
+│   │           ├── tests.py
+│   │           ├── urls.py
+│   │           └── views.py
 │   ├── routes.py
 │   ├── settings.py
 │   ├── urls.py
 │   └── wsgi.py
 └── manage.py
-
-7 directories, 13 files

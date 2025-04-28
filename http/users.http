@@ -1,2 +1,118 @@
-###
-POST http://localhost:8000/api/v1/users/create_one
+@baseUrl = http://localhost:8000/api/v1
+@contentType = application/json
+
+### Variables for testing
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1ODE4OTM1LCJpYXQiOjE3NDU4MTg2MzUsImp0aSI6ImU2MDAxYjlkYzRiOTQ5YjFiMjJmZWYzMzdjYzFmNGVlIiwidXNlcl9pZCI6Mn0.MHZVvp3-k-Xz4bnyxkgEtwclzD_jM5Rdv60hdy_7ffM
+@userId = user_id_here
+@userId1 = user1_id_here
+@userId2 = user2_id_here
+
+### Find One User
+GET {{baseUrl}}/users/find_one?username=testuser
+Authorization: Bearer {{accessToken}}
+
+### Find All Users
+GET {{baseUrl}}/users/find_all/
+Authorization: Bearer {{accessToken}}
+
+### Create One User
+POST {{baseUrl}}/users/create_one
+Content-Type: {{contentType}}
+Authorization: Bearer {{accessToken}}
+
+{
+    "username": "newuser",
+    "email": "newuser@example.com",
+    "password": "password123",
+    "first_name": "New",
+    "last_name": "User"
+}
+
+### Create Many Users
+POST {{baseUrl}}/users/create_many
+Content-Type: {{contentType}}
+Authorization: Bearer {{accessToken}}
+
+[
+    {
+        "username": "user1",
+        "email": "user1@example.com",
+        "password": "password123",
+        "first_name": "User",
+        "last_name": "One"
+    },
+    {
+        "username": "user2",
+        "email": "user2@example.com",
+        "password": "password123",
+        "first_name": "User",
+        "last_name": "Two"
+    }
+]
+
+### Update One User
+PUT {{baseUrl}}/users/update_one
+Content-Type: {{contentType}}
+Authorization: Bearer {{accessToken}}
+
+{
+    "id": "{{userId}}",
+    "username": "updateduser",
+    "email": "updated@example.com",
+    "first_name": "Updated",
+    "last_name": "User"
+}
+
+### Update Many Users
+PUT {{baseUrl}}/users/update_many
+Content-Type: {{contentType}}
+Authorization: Bearer {{accessToken}}
+
+[
+    {
+        "id": "{{userId1}}",
+        "username": "updateduser1",
+        "email": "updated1@example.com",
+        "first_name": "Updated",
+        "last_name": "One"
+    },
+    {
+        "id": "{{userId2}}",
+        "username": "updateduser2",
+        "email": "updated2@example.com",
+        "first_name": "Updated",
+        "last_name": "Two"
+    }
+]
+
+### Remove One User
+DELETE {{baseUrl}}/users/remove_one?id={{userId}}
+Authorization: Bearer {{accessToken}}
+
+### Remove Many Users
+DELETE {{baseUrl}}/users/remove_many?ids[]={{userId1}}&ids[]={{userId2}}
+Authorization: Bearer {{accessToken}}
+
+### Search Users
+GET {{baseUrl}}/users/search?query=john&field=username
+Authorization: Bearer {{accessToken}}
+
+### Filter Users
+GET {{baseUrl}}/users/filter?role=admin&status=active
+Authorization: Bearer {{accessToken}}
+
+### Find User by ID
+GET {{baseUrl}}/users/find_by_id?id={{userId}}
+Authorization: Bearer {{accessToken}}
+
+### Find Users by IDs
+GET {{baseUrl}}/users/find_by_ids?ids[]={{userId1}}&ids[]={{userId2}}
+Authorization: Bearer {{accessToken}}
+
+### Check if User Exists by ID
+GET {{baseUrl}}/users/exists_by_id?id={{userId}}
+Authorization: Bearer {{accessToken}}
+
+### Check if Users Exist by IDs
+GET {{baseUrl}}/users/exists_by_ids?ids[]={{userId1}}&ids[]={{userId2}}
+Authorization: Bearer {{accessToken}}
