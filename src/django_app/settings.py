@@ -21,7 +21,7 @@ DEBUG = config.DEBUG
 
 ALLOWED_HOSTS = config.ALLOWED_HOSTS
 
-AUTH_USER_MODEL = 'users.User'
+
 
 # Application definition
 
@@ -36,9 +36,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'corsheaders',
     'django_app.modules.v1.auth',
     'django_app.modules.v1.users',
-    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -78,6 +78,8 @@ WSGI_APPLICATION = 'django_app.wsgi.application'
 DATABASES = {
     'default': config.DATABASE_CONFIG
 }
+
+AUTH_USER_MODEL = 'users.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

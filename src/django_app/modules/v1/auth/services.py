@@ -1,11 +1,9 @@
 # django_app/modules/v1/auth/services.py
 
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate, login, logout
 from django_app.modules.v1.users.models import User
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.utils import timezone
 from .repositories import AuthRepository
-from .models import TokenBlacklist
 
 class AuthService:
     def __init__(self):
@@ -42,23 +40,16 @@ class AuthService:
     def logout(self, request, refresh_token):
         if not refresh_token:
             raise ValueError("Refresh token is required for logout")
-        TokenBlacklist.objects.create(
-            token=refresh_token,
-            expires_at=timezone.now() + timezone.timedelta(days=1)
-        )
-        logout(request)
+        
+        token = RefreshToken(refresh_token)
+        token.blacklist()
 
-    def is_token_blacklisted(self, token):
-        return TokenBlacklist.objects.filter(
-            token=token,
-            expires_at__gt=timezone.now()
-        ).exists()
+        logout(request)
 
     def forgot_password(self, data):
         user = self.repository.find_by_email(data['email'])
         if not user:
             raise ValueError("Email not found")
-        # Generate and send password reset token
         token = self.repository.create_password_reset_token(user)
         self.repository.send_password_reset_email(user.email, token)
 
