@@ -27,9 +27,9 @@ class AuthRepository:
     def send_password_reset_email(self, email, token):
         reset_url = f"{settings.FRONTEND_URL}/reset-password?token={token}"
         send_mail(
-            'Password Reset Request',
-            f'Click the following link to reset your password: {reset_url}',
-            settings.DEFAULT_FROM_EMAIL,
-            [email],
+            subject='Password Reset Request',
+            message=f'Click the following link to reset your password: {reset_url}',
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
             fail_silently=False,
         )

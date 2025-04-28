@@ -1,7 +1,7 @@
 # django_app/modules/v1/auth/services.py
 
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django_app.modules.v1.users.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.utils import timezone
 from .repositories import AuthRepository

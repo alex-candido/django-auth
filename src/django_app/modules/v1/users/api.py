@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
-from dataclasses import dataclass
 from .services import UserService
 from .serializers import (
     UserCreateSerializer,

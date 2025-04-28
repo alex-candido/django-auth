@@ -1,12 +1,53 @@
-pdm run manage makemigrations
-SystemCheckError: System check identified some issues:
+pdm manage makemigrations
+Traceback (most recent call last):
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/apps/registry.py", line 158, in get_app_config
+    return self.app_configs[app_label]
+KeyError: 'users'
 
-ERRORS:
-auth.User.groups: (fields.E304) Reverse accessor 'Group.user_set' for 'auth.User.groups' clashes with reverse accessor for 'custom_users.User.groups'.
-	HINT: Add or change a related_name argument to the definition for 'auth.User.groups' or 'custom_users.User.groups'.
-auth.User.user_permissions: (fields.E304) Reverse accessor 'Permission.user_set' for 'auth.User.user_permissions' clashes with reverse accessor for 'custom_users.User.user_permissions'.
-	HINT: Add or change a related_name argument to the definition for 'auth.User.user_permissions' or 'custom_users.User.user_permissions'.
-custom_users.User.groups: (fields.E304) Reverse accessor 'Group.user_set' for 'custom_users.User.groups' clashes with reverse accessor for 'auth.User.groups'.
-	HINT: Add or change a related_name argument to the definition for 'custom_users.User.groups' or 'auth.User.groups'.
-custom_users.User.user_permissions: (fields.E304) Reverse accessor 'Permission.user_set' for 'custom_users.User.user_permissions' clashes with reverse accessor for 'auth.User.user_permissions'.
-	HINT: Add or change a related_name argument to the definition for 'custom_users.User.user_permissions' or 'auth.User.user_permissions'.
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/contrib/auth/__init__.py", line 283, in get_user_model
+    return django_apps.get_model(settings.AUTH_USER_MODEL, require_ready=False)
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/apps/registry.py", line 208, in get_model
+    app_config = self.get_app_config(app_label)
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/apps/registry.py", line 165, in get_app_config
+    raise LookupError(message)
+LookupError: No installed app with label 'users'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/e/development/projects/backend/python-django/django-auth/./src/manage.py", line 22, in <module>
+    main()
+  File "/mnt/e/development/projects/backend/python-django/django-auth/./src/manage.py", line 18, in main
+    execute_from_command_line(sys.argv)
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+    utility.execute()
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/core/management/__init__.py", line 416, in execute
+    django.setup()
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/apps/registry.py", line 124, in populate
+    app_config.ready()
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/contrib/admin/apps.py", line 27, in ready
+    self.module.autodiscover()
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/contrib/admin/__init__.py", line 52, in autodiscover
+    autodiscover_modules("admin", register_to=site)
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/utils/module_loading.py", line 58, in autodiscover_modules
+    import_module("%s.%s" % (app_config.name, module_to_search))
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/contrib/auth/admin.py", line 6, in <module>
+    from django.contrib.auth.forms import (
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/contrib/auth/forms.py", line 20, in <module>
+    UserModel = get_user_model()
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.10/site-packages/django/contrib/auth/__init__.py", line 289, in get_user_model
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: AUTH_USER_MODEL refers to model 'users.User' that has not been installed
