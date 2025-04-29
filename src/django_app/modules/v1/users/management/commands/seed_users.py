@@ -1,5 +1,3 @@
-# django_app/modules/v1/users/management/commands/seed_users.py
-
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django_app.modules.v1.users.repositories import UserRepository
@@ -25,12 +23,10 @@ class Command(BaseCommand):
         )
 
     def _generate_random_password(self, length=12):
-        """Generate a random password"""
         chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()'
         return ''.join(random.choice(chars) for _ in range(length))
 
     def _create_admin_user(self):
-        """Create an admin user"""
         return {
             'username': 'admin',
             'email': 'admin@example.com',
@@ -42,7 +38,6 @@ class Command(BaseCommand):
         }
 
     def _create_test_user(self):
-        """Create a test user"""
         return {
             'username': 'testuser',
             'email': 'test@example.com',
@@ -54,61 +49,49 @@ class Command(BaseCommand):
         }
 
     def _create_fake_user(self, fake):
-        """Generate fake user data"""
-        first_name = fake.first_name()
-        last_name = fake.last_name()
-        username = fake.user_name()
-        email = fake.email()
-        password = self._generate_random_password()
-
         return {
-            'username': username,
-            'email': email,
-            'password': password,
-            'first_name': first_name,
-            'last_name': last_name,
+            'username': fake.user_name(),
+            'email': fake.email(),
+            'password': self._generate_random_password(),
+            'first_name': fake.first_name(),
+            'last_name': fake.last_name(),
             'is_staff': False,
             'is_superuser': False,
         }
 
     def _seed_development(self, count):
-        """Seed development database"""
         user_repo = UserRepository()
         fake = Faker()
-        users_data = []
 
-        # Add admin and test users
-        users_data.append(self._create_admin_user())
-        users_data.append(self._create_test_user())
+        users_data = [
+            self._create_admin_user(),
+            self._create_test_user(),
+        ] + [self._create_fake_user(fake) for _ in range(count)]
 
-        # Add fake users
-        for _ in range(count):
-            users_data.append(self._create_fake_user(fake))
+        usernames = [user['username'] for user in users_data]
+        existing_users = set(
+            user_repo.find_all().filter(username__in=usernames).values_list('username', flat=True)
+        )
 
-        with transaction.atomic():
-            for user_data in users_data:
-                try:
-                    if not user_repo.find_one({'username': user_data['username']}):
-                        user_repo.create_one(user_data)
-                        self.stdout.write(self.style.SUCCESS(f"Created user: {user_data['username']}"))
-                    else:
-                        self.stdout.write(self.style.WARNING(f"User already exists: {user_data['username']}"))
-                except Exception as e:
-                    self.stdout.write(self.style.ERROR(f"Error creating user {user_data['username']}: {str(e)}"))
+        users_to_create = [user for user in users_data if user['username'] not in existing_users]
+
+        if users_to_create:
+            with transaction.atomic():
+                created_users = user_repo.create_many(users_to_create)
+                for user in created_users:
+                    self.stdout.write(self.style.SUCCESS(f"Created user: {user.username}"))
+        else:
+            self.stdout.write(self.style.WARNING("No new users to create. All already exist."))
 
     def _seed_production(self):
-        """Seed production database"""
         user_repo = UserRepository()
         admin_data = self._create_admin_user()
 
-        try:
-            if not user_repo.find_one({'username': admin_data['username']}):
-                user_repo.create_one(admin_data)
-                self.stdout.write(self.style.SUCCESS(f"Created admin user: {admin_data['username']}"))
-            else:
-                self.stdout.write(self.style.WARNING(f"Admin user already exists: {admin_data['username']}"))
-        except Exception as e:
-            self.stdout.write(self.style.ERROR(f"Error creating admin user: {str(e)}"))
+        if not user_repo.find_one({'username': admin_data['username']}):
+            user_repo.create_one(admin_data)
+            self.stdout.write(self.style.SUCCESS(f"Created admin user: {admin_data['username']}"))
+        else:
+            self.stdout.write(self.style.WARNING(f"Admin user already exists: {admin_data['username']}"))
 
     def handle(self, *args, **options):
         mode = options['mode']

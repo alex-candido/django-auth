@@ -7,7 +7,7 @@ import dj_database_url
 class ConfigService(BaseSettings):
     # Django Core Settings
     DEBUG: bool = True
-    SECRET_KEY: str = "default_secret_key" 
+    SECRET_KEY: str = "default_secret_key"
     ALLOWED_HOSTS: List[str] = ["*"]
     
     # Environment Settings
@@ -32,22 +32,33 @@ class ConfigService(BaseSettings):
     CORS_ALLOW_ALL_ORIGINS: bool = True
     CORS_ALLOWED_ORIGINS: List[str] = [
         "http://localhost:8000",
-        "http://127.0.0.1:8000"
+        "http://127.0.0.1:8000",
+        "http://localhost:3000"
     ]
     
-    # Email Settings - Configuração para Brevo (sem hardcode de credenciais)
+    # Email Settings
     EMAIL_BACKEND: str = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST: str = "smtp-relay.brevo.com"  # Servidor SMTP do Brevo
-    EMAIL_PORT: int = 587  # Porta para TLS
+    EMAIL_HOST: str = "smtp-relay.sendinblue.com"
+    EMAIL_PORT: int = 587
     EMAIL_USE_TLS: bool = True
-    EMAIL_HOST_USER: str = ""  # A variável será lida do arquivo .env
-    EMAIL_HOST_PASSWORD: str = ""  # A chave de API do Brevo será lida do arquivo .env
+    EMAIL_HOST_USER: str = ""
+    EMAIL_HOST_PASSWORD: str = ""
     DEFAULT_FROM_EMAIL: str = "alex.candido.tec@gmail.com"
     
-    # Frontend URL (para links em emails)
+    # Frontend URL
     FRONTEND_URL: str = "http://localhost:3000"
     
-    class Config:
-        env_file = "envs/.env"  # Caminho para o arquivo de variáveis de ambiente
-        case_sensitive = True
+    # Allauth Settings
+    ACCOUNT_EMAIL_REQUIRED: bool = True
+    ACCOUNT_EMAIL_VERIFICATION: str = 'mandatory'
+    ACCOUNT_AUTHENTICATED_REMEMBER: bool = True
+    ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS: int = 3
+    ACCOUNT_EMAIL_SUBJECT_PREFIX: str = '[MyProject] '
+    ACCOUNT_USERNAME_REQUIRED: bool = True
+    ACCOUNT_PASSWORD_MIN_LENGTH: int = 8
+    ACCOUNT_CONFIRM_EMAIL_ON_GET: bool = True
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL: str = 'https'
 
+    class Config:
+        env_file = "envs/.env"
+        case_sensitive = True

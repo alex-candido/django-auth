@@ -21,10 +21,7 @@ DEBUG = config.DEBUG
 
 ALLOWED_HOSTS = config.ALLOWED_HOSTS
 
-
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -34,9 +31,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'django_rest_passwordreset',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
     'corsheaders',
+    'allauth', 
+    'allauth.account',  
+    'allauth.socialaccount', 
     'django_app.modules.v1.auth',
     'django_app.modules.v1.users',
 ]
@@ -49,7 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'django_app.urls'
@@ -127,7 +132,7 @@ from datetime import timedelta
 # REST Framework settings
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication"
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
 
@@ -176,9 +181,6 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = config.CORS_ALLOW_ALL_ORIGINS
 CORS_ALLOWED_ORIGINS = config.CORS_ALLOWED_ORIGINS
 
-# Frontend URL
-FRONTEND_URL = config.FRONTEND_URL
-
 # Email settings
 EMAIL_BACKEND = config.EMAIL_BACKEND
 EMAIL_HOST = config.EMAIL_HOST
@@ -188,6 +190,20 @@ EMAIL_HOST_USER = config.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = config.DEFAULT_FROM_EMAIL
 
+# Allauth settings
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', 
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
+ACCOUNT_EMAIL_VERIFICATION = config.ACCOUNT_EMAIL_VERIFICATION
+ACCOUNT_AUTHENTICATED_REMEMBER = config.ACCOUNT_AUTHENTICATED_REMEMBER
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = config.ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = config.ACCOUNT_DEFAULT_HTTP_PROTOCOL
+ACCOUNT_EMAIL_SUBJECT_PREFIX = config.ACCOUNT_EMAIL_SUBJECT_PREFIX
+ACCOUNT_PASSWORD_MIN_LENGTH = config.ACCOUNT_PASSWORD_MIN_LENGTH
+ACCOUNT_CONFIRM_EMAIL_ON_GET = config.ACCOUNT_CONFIRM_EMAIL_ON_GET
 
-
+# Frontend URL
+FRONTEND_URL = config.FRONTEND_URL

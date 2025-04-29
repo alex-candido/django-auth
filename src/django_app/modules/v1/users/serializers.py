@@ -24,6 +24,13 @@ class UserCreateSerializer(serializers.ModelSerializer):
         if User.objects.filter(username=value).exists():
             raise serializers.ValidationError('Username already exists')
         return value
+    
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        user = User(**validated_data)
+        user.set_password(password)  # Corrige o armazenamento da senha
+        user.save()
+        return user
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=True)

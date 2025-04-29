@@ -2,9 +2,9 @@
 @contentType = application/json
 
 ### Variables for testing
-@username = newuser
-@password = admin123456
-@email = admin@example.com
+@username = alexdev
+@password = Orboygsq@16
+@email = alex.candido.dev@gmail.com
 
 ### Login with credentials
 # @name login
@@ -17,17 +17,18 @@ Content-Type: {{contentType}}
 }
 
 ### Store auth tokens from login response
-@accessToken = {{login.response.body.access_token}}
-@refreshToken = {{login.response.body.refresh_token}}
+@accessToken = {{login.response.body.access}}
+@refreshToken = {{login.response.body.refresh}}
 
 ### Register new user
 POST {{baseUrl}}/auth/register_credentials/
 Content-Type: {{contentType}}
 
 {
-    "username": "newuser",
-    "email": "newuser@example.com",
-    "password": "password123"
+    "username": "{{username}}",
+    "email": "{{email}}",
+    "password1": "{{password}}",
+    "password2": "{{password}}"
 }
 
 ### Logout (requires authentication)
@@ -36,7 +37,7 @@ Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
 {
-    "refresh_token": "{{refreshToken}}"
+    "refresh": "{{refreshToken}}"
 }
 
 ### Forgot Password
@@ -52,8 +53,8 @@ POST {{baseUrl}}/auth/reset_password/
 Content-Type: {{contentType}}
 
 {
-    "token": "reset_token_here",
-    "password": "newpassword123"
+    "token": "MTA0-cp15xj-2c841e29987f5a99ef5581b6f9ba1cf7",
+    "password": "NovaSenha@123"
 }
 
 ### Change Password (requires authentication)
@@ -62,8 +63,8 @@ Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
 {
-    "current_password": "{{password}}",
-    "new_password": "admin123456"
+    "new_password1": "NovaSenha@123",
+    "new_password2": "NovaSenha@123"
 }
 
 ### Get new Access Token using Refresh Token
@@ -71,21 +72,52 @@ POST {{baseUrl}}/auth/access_token/
 Content-Type: {{contentType}}
 
 {
-    "refresh_token": "{{refreshToken}}"
+    "refresh": "{{refreshToken}}"
 }
 
-### Get new Refresh Token using Access Token
+### Get new Refresh Token using Access Token (optional, depending on policy)
 POST {{baseUrl}}/auth/refresh_token/
 Content-Type: {{contentType}}
 
 {
-    "access_token": "{{accessToken}}"
+    "refresh": "{{refreshToken}}"
 }
 
-### Get Session Info (requires authentication)
-GET {{baseUrl}}/auth/session/
+### Verify token validity
+POST {{baseUrl}}/auth/verify_token/
+Content-Type: {{contentType}}
+
+{
+    "token": "{{accessToken}}"
+}
+
+### Resend email verification
+POST {{baseUrl}}/auth/resend_verification_email/
+Content-Type: {{contentType}}
+
+{
+    "email": "{{email}}"
+}
+
+### Confirm email verification
+POST {{baseUrl}}/auth/verify_email/
+Content-Type: {{contentType}}
+
+{
+    "key": "confirmacao-email-token-aqui"
+}
+
+### Get or update authenticated user's details
+GET {{baseUrl}}/auth/user/
+Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
-### Get Tokens (requires authentication)
-GET {{baseUrl}}/auth/tokens/
+### Update user details
+PATCH {{baseUrl}}/auth/user/
+Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
+
+{
+    "first_name": "Alex",
+    "last_name": "Candido"
+}
