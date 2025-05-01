@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:ac340124df3a95eb923c382426f6ba2d6a354142e102f85a8004faba9a258d2b"
+content_hash = "sha256:1fda308826b2a67fbd0aedcda608fa0a7d4f6c8b42707cf43eb76e4b3e8b4257"
 
 [[metadata.targets]]
 requires_python = ">=3.10"
@@ -221,20 +221,6 @@ dependencies = [
 files = [
     {file = "django_filter-25.1-py3-none-any.whl", hash = "sha256:4fa48677cf5857b9b1347fed23e355ea792464e0fe07244d1fdfb8a806215b80"},
     {file = "django_filter-25.1.tar.gz", hash = "sha256:1ec9eef48fa8da1c0ac9b411744b16c3f4c31176c867886e4c48da369c407153"},
-]
-
-[[package]]
-name = "django-rest-auth"
-version = "0.9.5"
-summary = "Create a set of REST API endpoints for Authentication and Registration"
-groups = ["default"]
-dependencies = [
-    "Django>=1.8.0",
-    "djangorestframework>=3.1.3",
-    "six>=1.9.0",
-]
-files = [
-    {file = "django-rest-auth-0.9.5.tar.gz", hash = "sha256:f11e12175dafeed772f50d740d22caeab27e99a3caca24ec65e66a8d6de16571"},
 ]
 
 [[package]]
@@ -574,17 +560,6 @@ dependencies = [
 files = [
     {file = "sendgrid-6.11.0-py3-none-any.whl", hash = "sha256:43ecf5bb742ea5850c7cfe68f5e7d9948772352306d4e83e119899959538b884"},
     {file = "sendgrid-6.11.0.tar.gz", hash = "sha256:71424b2a97f5a034121ea3b2666c653ba0ed315982f0d57b7851c0c9503dc5ab"},
-]
-
-[[package]]
-name = "six"
-version = "1.17.0"
-requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
-summary = "Python 2 and 3 compatibility utilities"
-groups = ["default"]
-files = [
-    {file = "six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"},
-    {file = "six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"},
 ]
 
 [[package]]

@@ -6,118 +6,150 @@
 @password = Orboygsq@16
 @email = alex.candido.dev@gmail.com
 
-### Login with credentials
-# @name login
-POST {{baseUrl}}/auth/login_credentials/
+### ========================
+### dj-rest-auth Authentication
+### ========================
+
+### Login (returns JWT tokens)
+# @name restLogin
+POST {{baseUrl}}/auth/login/
 Content-Type: {{contentType}}
 
 {
-    "username": "{{username}}",
-    "password": "{{password}}"
+  "username": "{{username}}",
+  "password": "{{password}}"
 }
 
-### Store auth tokens from login response
-@accessToken = {{login.response.body.access}}
-@refreshToken = {{login.response.body.refresh}}
+### Store tokens from dj-rest-auth login response
+@accessToken = {{restLogin.response.body.access}}
+@refreshToken = {{restLogin.response.body.refresh}}
 
-### Register new user
-POST {{baseUrl}}/auth/register_credentials/
-Content-Type: {{contentType}}
-
-{
-    "username": "{{username}}",
-    "email": "{{email}}",
-    "password1": "{{password}}",
-    "password2": "{{password}}"
-}
-
-### Logout (requires authentication)
+### Logout
 POST {{baseUrl}}/auth/logout/
 Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
-{
-    "refresh": "{{refreshToken}}"
-}
+{}
 
-### Forgot Password
-POST {{baseUrl}}/auth/forgot_password/
-Content-Type: {{contentType}}
-
-{
-    "email": "{{email}}"
-}
-
-### Reset Password (requires reset token)
-POST {{baseUrl}}/auth/reset_password/
-Content-Type: {{contentType}}
-
-{
-    "token": "MTA0-cp15xj-2c841e29987f5a99ef5581b6f9ba1cf7",
-    "password": "NovaSenha@123"
-}
-
-### Change Password (requires authentication)
-POST {{baseUrl}}/auth/change_password/
+### Change user password
+POST {{baseUrl}}/auth/password/change/
 Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
 {
-    "new_password1": "NovaSenha@123",
-    "new_password2": "NovaSenha@123"
+  "old_password": "{{password}}",
+  "new_password1": "NewPassword123",
+  "new_password2": "NewPassword123"
 }
 
-### Get new Access Token using Refresh Token
-POST {{baseUrl}}/auth/access_token/
-Content-Type: {{contentType}}
-
-{
-    "refresh": "{{refreshToken}}"
-}
-
-### Get new Refresh Token using Access Token (optional, depending on policy)
-POST {{baseUrl}}/auth/refresh_token/
-Content-Type: {{contentType}}
-
-{
-    "refresh": "{{refreshToken}}"
-}
-
-### Verify token validity
-POST {{baseUrl}}/auth/verify_token/
-Content-Type: {{contentType}}
-
-{
-    "token": "{{accessToken}}"
-}
-
-### Resend email verification
-POST {{baseUrl}}/auth/resend_verification_email/
-Content-Type: {{contentType}}
-
-{
-    "email": "{{email}}"
-}
-
-### Confirm email verification
-POST {{baseUrl}}/auth/verify_email/
-Content-Type: {{contentType}}
-
-{
-    "key": "confirmacao-email-token-aqui"
-}
-
-### Get or update authenticated user's details
+### Retrieve authenticated user details
 GET {{baseUrl}}/auth/user/
 Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
-### Update user details
-PATCH {{baseUrl}}/auth/user/
+### Update authenticated user details
+PUT {{baseUrl}}/auth/user/
 Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
 {
-    "first_name": "Alex",
-    "last_name": "Candido"
+  "first_name": "Alex",
+  "last_name": "Candido",
+  "email": "{{email}}"
 }
+
+### ========================
+### Password Reset
+### ========================
+
+### Request password reset
+POST {{baseUrl}}/auth/password/reset/
+Content-Type: {{contentType}}
+
+{
+  "email": "alex.candido.dev@gmail.com"
+}
+
+### Confirm password reset
+POST {{baseUrl}}/auth/password/reset/confirm/
+Content-Type: {{contentType}}
+
+{
+  "token": "password-reset-token-here",
+  "uid": "user-id-here",
+  "new_password1": "NewPassword123",
+  "new_password2": "NewPassword123"
+}
+
+### ========================
+### JWT Authentication
+### ========================
+
+### Obtain JWT token pair (via simplejwt)
+# @name tokenLogin
+POST {{baseUrl}}/auth/token/
+Content-Type: {{contentType}}
+
+{
+  "username": "{{username}}",
+  "password": "{{password}}"
+}
+
+### Store tokens from login response
+@accessToken = {{tokenLogin.response.body.access}}
+@refreshToken = {{tokenLogin.response.body.refresh}}
+
+### Refresh JWT token
+POST {{baseUrl}}/auth/token/refresh/
+Content-Type: {{contentType}}
+
+{
+  "refresh": "{{refreshToken}}"
+}
+
+### Verify JWT token
+POST {{baseUrl}}/auth/token/verify/
+Content-Type: {{contentType}}
+
+{
+  "token": "{{accessToken}}"
+}
+
+### ========================
+### Registration and Email Verification
+### ========================
+
+### Register new user
+POST {{baseUrl}}/auth/registration/
+Content-Type: {{contentType}}
+
+{
+  "username": "newuser",
+  "email": "newuser@example.com",
+  "password1": "StrongPassword123",
+  "password2": "StrongPassword123"
+}
+
+### Verify email address using token
+POST {{baseUrl}}/auth/registration/verify-email/
+Content-Type: {{contentType}}
+
+{
+  "key": "email-verification-token-here"
+}
+
+### Resend verification email
+POST {{baseUrl}}/auth/registration/resend-email/
+Content-Type: {{contentType}}
+
+{
+  "email": "{{email}}"
+}
+
+### Email verification sent confirmation page (GET)
+GET {{baseUrl}}/auth/registration/account-email-verification-sent/
+Content-Type: {{contentType}}
+
+### Confirm email via token in URL (GET)
+GET {{baseUrl}}/auth/registration/account-confirm-email/email-verification-token-here/
+Content-Type: {{contentType}}

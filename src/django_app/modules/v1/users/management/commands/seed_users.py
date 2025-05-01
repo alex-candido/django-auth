@@ -3,7 +3,7 @@ from django.db import transaction
 from django_app.modules.v1.users.repositories import UserRepository
 from faker import Faker
 import random
-
+from allauth.account.models import EmailAddress
 
 class Command(BaseCommand):
     help = 'Seeds the database with initial user data'
@@ -52,7 +52,8 @@ class Command(BaseCommand):
         return {
             'username': fake.user_name(),
             'email': fake.email(),
-            'password': self._generate_random_password(),
+            # 'password': self._generate_random_password(),
+            'password': 'User@123',
             'first_name': fake.first_name(),
             'last_name': fake.last_name(),
             'is_staff': False,
@@ -80,6 +81,14 @@ class Command(BaseCommand):
                 created_users = user_repo.create_many(users_to_create)
                 for user in created_users:
                     self.stdout.write(self.style.SUCCESS(f"Created user: {user.username}"))
+
+                    # Aqui adiciona o e-mail na tabela de emailaddress e marca como verificado
+                    EmailAddress.objects.create(
+                        user=user,
+                        email=user.email,
+                        verified=True,
+                        primary=True,
+                    )
         else:
             self.stdout.write(self.style.WARNING("No new users to create. All already exist."))
 

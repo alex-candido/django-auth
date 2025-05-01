@@ -29,7 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'django_extensions',
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
@@ -37,7 +39,6 @@ INSTALLED_APPS = [
     'django_rest_passwordreset',
     'dj_rest_auth',
     'dj_rest_auth.registration',
-    'corsheaders',
     'allauth', 
     'allauth.account',  
     'allauth.socialaccount', 
@@ -56,6 +57,9 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
 ]
+
+# django.contrib.sites
+SITE_ID = 1
 
 ROOT_URLCONF = 'django_app.urls'
 
@@ -132,9 +136,28 @@ from datetime import timedelta
 # REST Framework settings
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        # 'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        "rest_framework_simplejwt.authentication.JWTAuthentication", # Use this to allow only Authorization Header
     ],
 }
+
+# CORS settings
+CORS_ALLOW_ALL_ORIGINS = config.CORS_ALLOW_ALL_ORIGINS
+CORS_ALLOWED_ORIGINS = config.CORS_ALLOWED_ORIGINS
+
+# REST Auth settings
+REST_AUTH = {
+    "USE_JWT": True,
+    # Name of access token cookie, remove this setting if you don't want access token to be sent as cookie
+    # "JWT_AUTH_COOKIE": "_auth",
+    # Name of refresh token cookie, remove this setting if you don't want refresh token to be sent as cookie
+    # "JWT_AUTH_REFRESH_COOKIE": "_refresh",
+    "JWT_AUTH_HTTPONLY": False,  # Makes sure refresh token is sent
+    "PASSWORD_RESET_USE_SITES_DOMAIN": config.PASSWORD_RESET_USE_SITES_DOMAIN,
+    'PASSWORD_RESET_SERIALIZER': 'django_app.modules.v1.auth.serializers.CustomPasswordResetSerializer'
+}
+
+RESET_PASSWORD_REDIRECT_URL = config.RESET_PASSWORD_REDIRECT_URL
 
 # JWT settings
 SIMPLE_JWT = {
@@ -168,27 +191,7 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
-
-    "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
-    "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
-    "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
-    "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
-    "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
-    "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
-
-# CORS settings
-CORS_ALLOW_ALL_ORIGINS = config.CORS_ALLOW_ALL_ORIGINS
-CORS_ALLOWED_ORIGINS = config.CORS_ALLOWED_ORIGINS
-
-# Email settings
-EMAIL_BACKEND = config.EMAIL_BACKEND
-EMAIL_HOST = config.EMAIL_HOST
-EMAIL_PORT = config.EMAIL_PORT
-EMAIL_USE_TLS = config.EMAIL_USE_TLS
-EMAIL_HOST_USER = config.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
-DEFAULT_FROM_EMAIL = config.DEFAULT_FROM_EMAIL
 
 # Allauth settings
 AUTHENTICATION_BACKENDS = (
@@ -196,7 +199,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
+ACCOUNT_LOGIN_METHODS = {"email"}
 ACCOUNT_EMAIL_VERIFICATION = config.ACCOUNT_EMAIL_VERIFICATION
 ACCOUNT_AUTHENTICATED_REMEMBER = config.ACCOUNT_AUTHENTICATED_REMEMBER
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = config.ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS
@@ -205,5 +208,25 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = config.ACCOUNT_EMAIL_SUBJECT_PREFIX
 ACCOUNT_PASSWORD_MIN_LENGTH = config.ACCOUNT_PASSWORD_MIN_LENGTH
 ACCOUNT_CONFIRM_EMAIL_ON_GET = config.ACCOUNT_CONFIRM_EMAIL_ON_GET
 
+# Allauth sign up fields (added explicitly as required)
+ACCOUNT_SIGNUP_FIELDS = config.ACCOUNT_SIGNUP_FIELDS 
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = config.ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = config.ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL 
+
+LOGIN_REDIRECT_URL = config.LOGIN_REDIRECT_URL
+LOGOUT_REDIRECT_URL = config.LOGOUT_REDIRECT_URL 
+
+LOGIN_URL = config.FRONTEND_URL 
+
+# Django SMTP
+EMAIL_BACKEND = config.EMAIL_BACKEND
+EMAIL_HOST = config.EMAIL_HOST 
+EMAIL_PORT = config.EMAIL_PORT 
+EMAIL_USE_TLS = config.EMAIL_USE_TLS 
+EMAIL_HOST_USER = config.EMAIL_HOST_USER 
+EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD  
+DEFAULT_FROM_EMAIL = config.DEFAULT_FROM_EMAIL
+
 # Frontend URL
 FRONTEND_URL = config.FRONTEND_URL
+
