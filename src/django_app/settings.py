@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.gis',  # GeoDjango support
     'django_extensions',
     'corsheaders',
     'rest_framework',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount', 
     'django_app.modules.v1.auth',
     'django_app.modules.v1.users',
+    'django_app.modules.v1.places',  # New places module
 ]
 
 MIDDLEWARE = [

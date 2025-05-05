@@ -2,9 +2,9 @@
 
 from rest_framework.routers import DefaultRouter
 
-from .api import UserViewSet
+from .api import UserApiSet
 
 router = DefaultRouter()
-router.register(r'', UserViewSet, basename='users')
+router.register(r'', UserApiSet, basename='users')
 
 urlpatterns = router.urls
