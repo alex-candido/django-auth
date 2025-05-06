@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     'allauth', 
     'allauth.account',  
     'allauth.socialaccount', 
+    'schema_viewer',
+    'django_dbml',
     'django_app.modules.v1.auth',
     'django_app.modules.v1.users',
-    'django_app.modules.v1.places',  # New places module
 ]
 
 MIDDLEWARE = [

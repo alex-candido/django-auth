@@ -18,8 +18,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from schema_viewer.views import SchemaView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('schema-viewer/', include('schema_viewer.urls')),
     path('api/v1/', include('django_app.routes')),
 ]

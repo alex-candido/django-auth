@@ -23,10 +23,14 @@ dependencies = [
     "django-rest-passwordreset>=1.5.0", 
     "dj-rest-auth>=7.0.1", 
     "django-allauth>=65.3.0", 
-    "requests>=2.32.3"
+    "requests>=2.32.3", 
+    "pygraphviz>=1.14", 
+    "pydot>=4.0.0", 
+    "django-schema-viewer>=0.5.3", 
+    "django-dbml>=0.10.1"
 ]
 
-requires-python = ">=3.10"
+requires-python = ">=3.11.9"
 readme = "README.md"
 license = {text = "MIT"}
 

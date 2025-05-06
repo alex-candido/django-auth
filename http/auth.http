@@ -16,8 +16,8 @@ POST {{baseUrl}}/auth/login/
 Content-Type: {{contentType}}
 
 {
-  "username": "{{username}}",
-  "password": "{{password}}"
+  "email": "claylton202@gmail.com",
+  "password": "StrongPassword123"
 }
 
 ### Store tokens from dj-rest-auth login response
@@ -29,7 +29,9 @@ POST {{baseUrl}}/auth/logout/
 Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
-{}
+{
+  "refresh": "{{refreshToken}}"
+}
 
 ### Change user password
 POST {{baseUrl}}/auth/password/change/
@@ -124,8 +126,8 @@ POST {{baseUrl}}/auth/registration/
 Content-Type: {{contentType}}
 
 {
-  "username": "newuser",
-  "email": "newuser@example.com",
+  "username": "rodiziosexta",
+  "email": "claylton202@gmail.com",
   "password1": "StrongPassword123",
   "password2": "StrongPassword123"
 }
