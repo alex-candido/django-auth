@@ -3,7 +3,7 @@
 from pathlib import Path
 from django_app.config import ConfigService
 
-import os 
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,29 +30,29 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'django.contrib.gis', 
-    'django_extensions',
     'django.contrib.gis',
-    
+    'django_extensions',
+    'django_filters',
+
     'corsheaders',
     'rest_framework',
     'rest_framework_gis',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    
+
     'django_rest_passwordreset',
     'dj_rest_auth',
     'dj_rest_auth.registration',
-    'allauth', 
-    'allauth.account',  
-    'allauth.socialaccount', 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'schema_viewer',
     'django_dbml',
-    
+
     'django_app.modules.v1.auth',
     'django_app.modules.v1.users',
-    'django_app.modules.v1.places',  
+    'django_app.modules.v1.places',
 ]
 
 MIDDLEWARE = [
@@ -204,7 +204,7 @@ SIMPLE_JWT = {
 
 # Allauth settings
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend', 
+    'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
@@ -218,24 +218,23 @@ ACCOUNT_PASSWORD_MIN_LENGTH = config.ACCOUNT_PASSWORD_MIN_LENGTH
 ACCOUNT_CONFIRM_EMAIL_ON_GET = config.ACCOUNT_CONFIRM_EMAIL_ON_GET
 
 # Allauth sign up fields (added explicitly as required)
-ACCOUNT_SIGNUP_FIELDS = config.ACCOUNT_SIGNUP_FIELDS 
+ACCOUNT_SIGNUP_FIELDS = config.ACCOUNT_SIGNUP_FIELDS
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = config.ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = config.ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL 
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = config.ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL
 
 LOGIN_REDIRECT_URL = config.LOGIN_REDIRECT_URL
-LOGOUT_REDIRECT_URL = config.LOGOUT_REDIRECT_URL 
+LOGOUT_REDIRECT_URL = config.LOGOUT_REDIRECT_URL
 
-LOGIN_URL = config.FRONTEND_URL 
+LOGIN_URL = config.FRONTEND_URL
 
 # Django SMTP
 EMAIL_BACKEND = config.EMAIL_BACKEND
-EMAIL_HOST = config.EMAIL_HOST 
-EMAIL_PORT = config.EMAIL_PORT 
-EMAIL_USE_TLS = config.EMAIL_USE_TLS 
-EMAIL_HOST_USER = config.EMAIL_HOST_USER 
-EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD  
+EMAIL_HOST = config.EMAIL_HOST
+EMAIL_PORT = config.EMAIL_PORT
+EMAIL_USE_TLS = config.EMAIL_USE_TLS
+EMAIL_HOST_USER = config.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = config.DEFAULT_FROM_EMAIL
 
 # Frontend URL
 FRONTEND_URL = config.FRONTEND_URL
-

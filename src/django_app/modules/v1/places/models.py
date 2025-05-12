@@ -1,11 +1,10 @@
 # django_app/modules/v1/places/models.py
 
+import uuid
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 
 class Place(models.Model):
-    """Model for storing geographic places with spatial data."""
-
     class PlaceStatus(models.IntegerChoices):
         ACTIVE = 0, 'Active'
         INACTIVE = 1, 'Inactive'
@@ -23,7 +22,8 @@ class Place(models.Model):
         SPORTS_BAR = 9, 'Sports Bar'
         LOUNGE = 10, 'Lounge'
         ROOFTOP_BAR = 11, 'Rooftop Bar'
-
+        
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=250, unique=True)
     description = models.TextField(blank=True, null=True)

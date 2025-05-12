@@ -13,6 +13,8 @@ from .serializers import (
     UserSerializer
 )
 
+# find_one, find_all, create_one, create_many, update_one, update_many, remove_one, remove_many, search, filter, find_by_id, find_by_ids, exists_by_id, exists_by_ids
+
 user_service = UserService()
 
 class UserViewSet(viewsets.ModelViewSet):

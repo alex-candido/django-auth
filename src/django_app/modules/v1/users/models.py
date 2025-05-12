@@ -1,14 +1,12 @@
 # django_app/modules/v1/users/admin.py
 
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    """Custom User model for future extensibility.
+    uuid = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     
-    This model extends Django's AbstractUser, allowing us to add custom fields
-    while maintaining all the default User functionality.
-    """
     groups = models.ManyToManyField(
         'auth.Group',
         related_name='custom_user_set',  

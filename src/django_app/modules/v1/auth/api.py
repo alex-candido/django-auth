@@ -10,6 +10,8 @@ from dj_rest_auth.registration.views import (
 
 from dj_rest_auth.jwt_auth import get_refresh_view
 
+# TokenObtainPairView, TokenRefreshView, TokenVerifyView, LoginView, LogoutView, PasswordChangeView, UserDetailsView, PasswordResetView, PasswordResetConfirmView, RegisterView, VerifyEmailView, ResendEmailVerificationView
+
 # JWT Authentication views
 TokenObtainPairView = TokenObtainPairView
 TokenRefreshView = get_refresh_view
