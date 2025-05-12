@@ -1,7 +1,16 @@
 # django_app/modules/v1/users/serializers.py
 
 from rest_framework import serializers
-from django_app.modules.v1.users.models import User
+from .models import User
+
+class UserSerializer(serializers.ModelSerializer):
+    """Serializer para representar os dados de um usuário."""
+    
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'date_joined', 'last_login')
+        read_only_fields = ('id', 'date_joined', 'last_login')  # Campos somente leitura
+
 
 class UserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
@@ -73,11 +82,3 @@ class UserFilterSerializer(serializers.Serializer):
         choices=['active', 'inactive'],
         required=False
     )
-
-class UserSerializer(serializers.ModelSerializer):
-    """Serializer para representar os dados de um usuário."""
-    
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'date_joined', 'last_login')
-        read_only_fields = ('id', 'date_joined', 'last_login')  # Campos somente leitura

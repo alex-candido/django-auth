@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:d7bfe11101f4b004bf0f5623aca2095d53fe309ce8a0b41ab4ff1c3f3e8d1c03"
+content_hash = "sha256:6906d3508ab13fd773eef1ba9b21567b6eb679bc0032f7f73b73c58b8169a5cd"
 
 [[metadata.targets]]
 requires_python = ">=3.11.9"
@@ -272,6 +272,19 @@ dependencies = [
 files = [
     {file = "djangorestframework-3.16.0-py3-none-any.whl", hash = "sha256:bea7e9f6b96a8584c5224bfb2e4348dfb3f8b5e34edbecb98da258e892089361"},
     {file = "djangorestframework-3.16.0.tar.gz", hash = "sha256:f022ff46613584de994c0c6a4aebbace5fd700555fbe9d33b865ebf173eba6c9"},
+]
+
+[[package]]
+name = "djangorestframework-gis"
+version = "1.0"
+summary = "Geographic add-ons for Django Rest Framework"
+groups = ["default"]
+dependencies = [
+    "djangorestframework",
+]
+files = [
+    {file = "djangorestframework-gis-1.0.tar.gz", hash = "sha256:921c5adbc9a7c0502c905957a6695b67f55d7bf6582e1ab837888b55a1fce5a6"},
+    {file = "djangorestframework_gis-1.0-py2.py3-none-any.whl", hash = "sha256:bb715f05a111c02b9acc4021b17566e40c0b90dd833c583bac3d67f92be9667d"},
 ]
 
 [[package]]

@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django_app.modules.v1.users.models import User
+from .models import User
 
 # Customize the User admin interface
 @admin.register(User)

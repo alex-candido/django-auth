@@ -30,13 +30,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'django.contrib.gis',  # GeoDjango support
+    'django.contrib.gis', 
     'django_extensions',
+    'django.contrib.gis',
+    
     'corsheaders',
     'rest_framework',
+    'rest_framework_gis',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    
     'django_rest_passwordreset',
     'dj_rest_auth',
     'dj_rest_auth.registration',
@@ -45,8 +49,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount', 
     'schema_viewer',
     'django_dbml',
+    
     'django_app.modules.v1.auth',
     'django_app.modules.v1.users',
+    'django_app.modules.v1.places',  
 ]
 
 MIDDLEWARE = [
