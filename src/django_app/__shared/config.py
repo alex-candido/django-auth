@@ -1,4 +1,4 @@
-# django_app/config.py
+# django_app/__shared/config.py
 
 from typing import List
 from pydantic_settings import BaseSettings

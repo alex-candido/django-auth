@@ -1,0 +1,1 @@
+# django_app/__shared/constants.py

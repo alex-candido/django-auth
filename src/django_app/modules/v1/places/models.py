@@ -23,7 +23,7 @@ class Place(models.Model):
         LOUNGE = 10, 'Lounge'
         ROOFTOP_BAR = 11, 'Rooftop Bar'
         
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    uuid = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=250, unique=True)
     description = models.TextField(blank=True, null=True)
