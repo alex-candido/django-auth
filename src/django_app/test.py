@@ -1,4 +1,4 @@
-from django_app.config import ConfigService
+from django_app.__shared.config import ConfigService
 
 # Criação da instância da classe ConfigService
 config = ConfigService()

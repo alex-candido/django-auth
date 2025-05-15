@@ -1,7 +1,7 @@
 # django_app/settings.py
 
 from pathlib import Path
-from django_app.config import ConfigService
+from django_app.__shared.config import ConfigService
 
 import os
 

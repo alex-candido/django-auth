@@ -1,1 +1,74 @@
- 
+por exemplo usar um padrão, me ajude analise essa sugestão
+
+api.py
+
+class UsersViewSet(viewsets.ModelViewSet):
+
+    find_one_use_case = FindOneUseCase(repository=UsersRepository())
+
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    def find_one(self, request):
+        serializer = UsersSerializer(data=request.query_params)
+        serializer.is_valid(raise_exception=True)
+
+        input_param = self.find_one_use_case.Input(**serializer.validated_data)
+
+        try:
+            output = self.find_one_use_case(input_param) 
+        except Exception as e:
+            return Response(status=http.STATUS)
+
+        presenter = UsersSerializer(output.user)
+        return Response(presenter.data, status=status.HTTP_200_OK)
+
+seedwork/use_cases.py
+
+Input = TypeVar('Input')
+Output = TypeVar('Output')
+
+class UseCase(Generic[Input, Output], ABC):
+
+    @abc.abstractmethod
+    def execute(self, input_param: Input) -> Output:
+        raise NotImplementedError()
+
+use_cases.py
+
+@dataclass(slots=True, frozen=True)
+class FindOneUseCase(UseCase):
+    repository: UsersRepository
+
+    def execute(self, input_param: 'Input') -> 'Output':
+        user = self.repository.find_one(params=input_param)
+        return self.Output(user)
+
+    @dataclass(slots=True, frozen=True)
+    class Input:
+        ...
+
+    @dataclass(slots=True, frozen=True)
+    class Output():
+        ...
+
+seedwork/repositories.py
+
+Params = TypeVar('Params')
+Output = TypeVar('Output')
+
+class Repository(Generic[Params], ABC):
+
+    @abc.abstractmethod
+    def find_one(self, params: Params) -> Output:
+        raise NotImplementedError()
+
+
+repositories.py
+
+class UsersRepository(RepositoryContracts): 
+
+    def find_one(self, params: FindOneUseCase.Input): Output
+        try:
+            return User.objects.get(**asdict(params))
+        except User.DoesNotExist:
+            return None
+
