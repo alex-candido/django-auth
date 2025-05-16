@@ -238,3 +238,6 @@ DEFAULT_FROM_EMAIL = config.DEFAULT_FROM_EMAIL
 
 # Frontend URL
 FRONTEND_URL = config.FRONTEND_URL
+
+GDAL_LIBRARY_PATH = "libgdal.so"
+GEOS_LIBRARY_PATH = "libgeos_c.so.1"

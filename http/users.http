@@ -10,11 +10,11 @@
 @userId2 = user2_id_here
 
 ### Find One User
-GET {{baseUrl}}/users/find_one?username=testuser
+GET {{baseUrl}}/users/find_one/?username=testuser
 Authorization: Bearer {{accessToken}}
 
 ### Find All Users
-GET {{baseUrl}}/users/find_all/
+GET {{baseUrl}}/users/find_all/?page=1&per_page=2&sort=username&sort_dir=asc
 Authorization: Bearer {{accessToken}}
 
 ### Create One User
@@ -31,7 +31,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Create Many Users
-POST {{baseUrl}}/users/create_many
+POST {{baseUrl}}/users/create_many/
 Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
@@ -53,7 +53,7 @@ Authorization: Bearer {{accessToken}}
 ]
 
 ### Update One User
-PUT {{baseUrl}}/users/update_one
+PUT {{baseUrl}}/users/update_one/
 Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
@@ -66,7 +66,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Update Many Users
-PUT {{baseUrl}}/users/update_many
+PUT {{baseUrl}}/users/update_many/
 Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
@@ -88,33 +88,33 @@ Authorization: Bearer {{accessToken}}
 ]
 
 ### Remove One User
-DELETE {{baseUrl}}/users/remove_one?id={{userId}}
+DELETE {{baseUrl}}/users/remove_one/?id={{userId}}
 Authorization: Bearer {{accessToken}}
 
 ### Remove Many Users
-DELETE {{baseUrl}}/users/remove_many?ids[]={{userId1}}&ids[]={{userId2}}
+DELETE {{baseUrl}}/users/remove_many/?ids[]={{userId1}}&ids[]={{userId2}}
 Authorization: Bearer {{accessToken}}
 
 ### Search Users
-GET {{baseUrl}}/users/search?query=john&field=username
+GET {{baseUrl}}/users/search/?query=john&field=username&page=1&per_page=2&sort=username&sort_dir=asc
 Authorization: Bearer {{accessToken}}
 
 ### Filter Users
-GET {{baseUrl}}/users/filter?role=admin&status=active
+GET {{baseUrl}}/users/filter/?status=active&page=1&per_page=2&sort=username&sort_dir=asc
 Authorization: Bearer {{accessToken}}
 
 ### Find User by ID
-GET {{baseUrl}}/users/find_by_id?id={{userId}}
+GET {{baseUrl}}/users/find_by_id/?id={{userId}}
 Authorization: Bearer {{accessToken}}
 
 ### Find Users by IDs
-GET {{baseUrl}}/users/find_by_ids?ids[]={{userId1}}&ids[]={{userId2}}
+GET {{baseUrl}}/users/find_by_ids/?ids[]={{userId1}}&ids[]={{userId2}}
 Authorization: Bearer {{accessToken}}
 
 ### Check if User Exists by ID
-GET {{baseUrl}}/users/exists_by_id?id={{userId}}
+GET {{baseUrl}}/users/exists_by_id/?id={{userId}}
 Authorization: Bearer {{accessToken}}
 
 ### Check if Users Exist by IDs
-GET {{baseUrl}}/users/exists_by_ids?ids[]={{userId1}}&ids[]={{userId2}}
+GET {{baseUrl}}/users/exists_by_ids/?ids[]={{userId1}}&ids[]={{userId2}}
 Authorization: Bearer {{accessToken}}

@@ -1,0 +1,41 @@
+    from .repositories import UserRepository
+ImportError: cannot import name 'UserRepository' from partially initialized module 'django_app.modules.v1.users.repositories' (most likely due to a circular import) (/mnt/e/development/projects/backend/python-django/django-auth/src/django_app/modules/v1/users/repositories.py)
+/mnt/e/development/projects/backend/python-django/django-auth/src/django_app/modules/v1/users/use_cases.py changed, reloading.
+Watching for file changes with StatReloader
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/home/alex-candido/.local/share/pdm/python/cpython@3.13.2/lib/python3.13/threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "/home/alex-candido/.local/share/pdm/python/cpython@3.13.2/lib/python3.13/threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.13/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+    ~~^^^^^^^^^^^^^^^^^
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.13/site-packages/django/core/management/commands/runserver.py", line 124, in inner_run
+    autoreload.raise_last_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.13/site-packages/django/utils/autoreload.py", line 86, in raise_last_exception
+    raise _exception[1]
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 394, in execute
+    autoreload.check_errors(django.setup)()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.13/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+    ~~^^^^^^^^^^^^^^^^^
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.13/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/e/development/projects/backend/python-django/django-auth/.venv/lib/python3.13/site-packages/django/apps/registry.py", line 124, in populate
+    app_config.ready()
+    ~~~~~~~~~~~~~~~~^^
+  File "/mnt/e/development/projects/backend/python-django/django-auth/src/django_app/modules/v1/users/apps.py", line 14, in ready
+    from .container import UserContainer
+  File "/mnt/e/development/projects/backend/python-django/django-auth/src/django_app/modules/v1/users/container.py", line 4, in <module>
+    from .repositories import UserRepository
+  File "/mnt/e/development/projects/backend/python-django/django-auth/src/django_app/modules/v1/users/repositories.py", line 12, in <module>
+    from .use_cases import FindOneUseCase
+  File "/mnt/e/development/projects/backend/python-django/django-auth/src/django_app/modules/v1/users/use_cases.py", line 10, in <module>
+    from .repositories import UserRepository
+ImportError: cannot import name 'UserRepository' from partially initialized module 'django_app.modules.v1.users.repositories' (most likely due to a circular import) (/mnt/e/development/projects/backend/python-django/django-auth/src/django_app/modules/v1/users/repositories.py)
