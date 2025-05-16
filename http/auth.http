@@ -1,12 +1,12 @@
 # http/auth.http
 
-@baseUrl = http://localhost:8000/api/v1
+@baseUrl = http://localhost:3333/api/v1
 @contentType = application/json
 
 ### Variables for testing
-@username = alexdev
-@password = Orboygsq@16
-@email = alex.candido.dev@gmail.com
+@username = dsmith
+@password = User@123
+@email = pmccormick@example.org
 
 ### ========================
 ### dj-rest-auth Authentication
@@ -18,8 +18,8 @@ POST {{baseUrl}}/auth/login/
 Content-Type: {{contentType}}
 
 {
-  "email": "claylton202@gmail.com",
-  "password": "StrongPassword123"
+  "email": "{{email}}",
+  "password": "{{password}}"
 }
 
 ### Store tokens from dj-rest-auth login response

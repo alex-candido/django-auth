@@ -1,5 +1,6 @@
 # django_app/modules/v1/users/api.py
 
+from dataclasses import asdict
 from typing import List, Type, Union, Any
 from rest_framework.response import Response
 from rest_framework import status, viewsets
@@ -7,7 +8,7 @@ from rest_framework.decorators import action
 from rest_framework.serializers import Serializer
 from rest_framework.permissions import IsAuthenticated
 from dependency_injector.wiring import inject, Provide
-from django_app import container 
+from django_app.container import container 
 from .serializers import (
     PaginationRequestSerializer,
     PaginationResponseSerializer,
@@ -19,7 +20,7 @@ from .serializers import (
     UserSearchRequestSerializer,
     UserUpdateRequestSerializer,
     UserIdSerializer,
-    UserSerializer
+    UserQuerySerializer
 )
 
 from .use_cases import (
@@ -38,19 +39,21 @@ from .use_cases import (
     ExistsByIdUseCase,
     ExistsByIdsUseCase,
 )
-from .repositories import UserRepository
 
 # find_one, find_all, create_one, create_many, update_one, update_many, remove_one, remove_many, search, filter, find_by_id, find_by_ids, exists_by_id, exists_by_ids, validated_data, _to_response
 
 class UserViewSet(viewsets.ModelViewSet):
-    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    @action(detail=False, methods=['get'])
     @inject
     def find_one(self, request, find_one_use_case: FindOneUseCase = Provide[container.users.find_one_use_case]):
-        validated_data = self._validated_data(UserSerializer, request.query_params)
-        input_param = find_one_use_case.Input(**validated_data)
-        output = find_one_use_case.execute(input_param)
-        data = self._to_response(UserResponseSerializer, output)
-        return Response(data, status=status.HTTP_200_OK)
+        validated_data = self._validated_data(UserQuerySerializer, data=request.query_params)
+        # input_param = find_one_use_case.Input(**validated_data)
+        use_case_instance = find_one_use_case
+
+        print(use_case_instance.Input)
+        # output = find_one_use_case.execute(input_param)
+        # data = self._to_response(UserResponseSerializer, output)
+        return Response(validated_data, status=status.HTTP_200_OK)
     
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
     @inject
@@ -177,7 +180,7 @@ class UserViewSet(viewsets.ModelViewSet):
     
     @staticmethod
     def _validated_data(serializer_class: Type[Serializer], data: dict[str, Any] | List[dict[str, Any]] | Any, **kwargs) -> Any:
-        serializer = serializer_class(data, **kwargs)
+        serializer = serializer_class(data=data, **kwargs)
         serializer.is_valid(raise_exception=True)
         return serializer.validated_data
 

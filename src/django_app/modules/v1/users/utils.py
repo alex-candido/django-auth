@@ -1,1 +1,4 @@
 # django_app/modules/v1/users/utils.py
+
+class UserUtils:
+    pass

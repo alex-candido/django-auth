@@ -9,7 +9,8 @@ class UsersConfig(AppConfig):
     verbose_name = 'Users'
 
     def ready(self):
-        from django_app import container
-        container.users().wire(modules=[
+        from django_app.container import container
+        container.wire(modules=[
             'django_app.modules.v1.users.api',
         ])
+    

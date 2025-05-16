@@ -76,8 +76,9 @@ class PaginationResponseSerializer(serializers.Serializer):
     per_page = serializers.IntegerField()
     last_page = serializers.IntegerField()
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'date_joined', 'last_login')
-        read_only_fields = ('id', 'date_joined', 'last_login')
+# serializers.py
+class UserQuerySerializer(serializers.Serializer):
+    id = serializers.IntegerField(required=False)
+    uuid = serializers.UUIDField(required=False)
+    username = serializers.CharField(required=False)
+    email = serializers.EmailField(required=False)

@@ -47,4 +47,4 @@ distribution = true
 
 [tool.pdm.scripts]
 manage="python ./src/manage.py"
-server = "pdm run manage runserver 0.0.0.0:8000"
+server = "pdm run manage runserver 0.0.0.0:3333"

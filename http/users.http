@@ -1,17 +1,17 @@
 # http/users.http
 
-@baseUrl = http://localhost:8000/api/v1
+@baseUrl = http://localhost:3333/api/v1
 @contentType = application/json
 
 ### Variables for testing
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1ODE4OTM1LCJpYXQiOjE3NDU4MTg2MzUsImp0aSI6ImU2MDAxYjlkYzRiOTQ5YjFiMjJmZWYzMzdjYzFmNGVlIiwidXNlcl9pZCI6Mn0.MHZVvp3-k-Xz4bnyxkgEtwclzD_jM5Rdv60hdy_7ffM
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NDE4MjYyLCJpYXQiOjE3NDc0MTc5NjIsImp0aSI6IjNiNGY0Yzk4MjNhMTRmZDM5MjBkYTgwZTA0MGZhNGYxIiwidXNlcl9pZCI6NTJ9.JAiaf03DFCk1C2mYuCLRFQyaeEFsSft-AZbU-GZXai8
 @userId = user_id_here
 @userId1 = user1_id_here
 @userId2 = user2_id_here
 
 ### Find One User
-GET {{baseUrl}}/users/find_one/?username=testuser
-Authorization: Bearer {{accessToken}}
+GET {{baseUrl}}/users/find_one/?username=dsmith
+# Authorization: Bearer {{accessToken}}s
 
 ### Find All Users
 GET {{baseUrl}}/users/find_all/?page=1&per_page=2&sort=username&sort_dir=asc
@@ -88,12 +88,23 @@ Authorization: Bearer {{accessToken}}
 ]
 
 ### Remove One User
-DELETE {{baseUrl}}/users/remove_one/?id={{userId}}
+DELETE {{baseUrl}}/users/remove_one/
+Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
 
+{
+  "id": "{{userId}}"
+}
+
 ### Remove Many Users
-DELETE {{baseUrl}}/users/remove_many/?ids[]={{userId1}}&ids[]={{userId2}}
+DELETE {{baseUrl}}/users/remove_many/
+Content-Type: {{contentType}}
 Authorization: Bearer {{accessToken}}
+
+[
+  { "id": "{{userId1}}" },
+  { "id": "{{userId2}}" }
+]
 
 ### Search Users
 GET {{baseUrl}}/users/search/?query=john&field=username&page=1&per_page=2&sort=username&sort_dir=asc
